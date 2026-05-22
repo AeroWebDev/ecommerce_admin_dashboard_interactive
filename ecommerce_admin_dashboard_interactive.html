@@ -1,0 +1,339 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0f0f13;--bg2:#17171e;--bg3:#1e1e28;--border:#2a2a38;
+--text:#f0f0f5;--text2:#9090aa;--text3:#55556a;
+--purple:#7c6ef5;--purple2:#a89af8;--purple3:#2d2850;
+--green:#22c97a;--green2:#0d3d26;
+--red:#f05252;--red2:#3d1515;
+--amber:#f5a623;--amber2:#3d2a0a;
+--blue:#4fa3f7;--blue2:#0d2640;
+--card:#17171e;--card2:#1e1e28;
+}
+.light{
+--bg:#f4f4f8;--bg2:#ffffff;--bg3:#eaeaf0;--border:#dddde8;
+--text:#1a1a2e;--text2:#6060808;--text3:#9090aa;
+--card:#ffffff;--card2:#f4f4f8;
+--purple3:#ede9fe;--green2:#dcfce7;--red2:#fee2e2;--amber2:#fef3c7;--blue2:#dbeafe;
+}
+.dash{display:grid;grid-template-columns:180px 1fr;min-height:680px;background:var(--bg);border-radius:14px;overflow:hidden;border:1px solid var(--border);font-family:system-ui,sans-serif}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:14px;display:flex;flex-direction:column;gap:2px}
+.logo{display:flex;align-items:center;gap:8px;padding:6px 4px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.logo-box{width:26px;height:26px;background:#7c6ef5;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.logo-box i{color:#fff;font-size:14px}
+.logo-name{font-size:14px;font-weight:600;color:var(--text)}
+.nav-sec{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;padding:10px 6px 4px}
+.nav{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:8px;cursor:pointer;font-size:12px;color:var(--text2);transition:all .15s;position:relative}
+.nav:hover{background:var(--bg3);color:var(--text)}
+.nav.on{background:var(--purple3);color:var(--purple)}
+.nav.on i{color:var(--purple)}
+.nav i{font-size:15px;color:var(--text3)}
+.nav .badge{margin-left:auto;background:var(--purple);color:#fff;font-size:9px;padding:1px 5px;border-radius:10px;font-weight:600}
+.sb-bot{margin-top:auto;border-top:1px solid var(--border);padding-top:10px}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--purple3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--purple)}
+.upg{width:100%;margin-top:8px;padding:7px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer}
+.main{background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 0;flex-shrink:0}
+.tbtitle{font-size:16px;font-weight:600;color:var(--text)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text2);background:var(--bg2);cursor:pointer;transition:.15s}
+.tb-btn:hover{border-color:var(--purple);color:var(--purple)}
+.toggle-dark{width:36px;height:20px;background:var(--purple);border-radius:10px;cursor:pointer;position:relative;border:none;flex-shrink:0;transition:.2s}
+.toggle-dark::after{content:'';position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
+.light .toggle-dark::after{left:19px}
+.content{padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;cursor:pointer;transition:.2s}
+.sc:hover{border-color:var(--purple);transform:translateY(-1px)}
+.sc-lbl{font-size:11px;color:var(--text3);display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.sc-val{font-size:19px;font-weight:700;color:var(--text);margin-bottom:4px}
+.sc-ch{font-size:11px;font-weight:600}
+.up{color:var(--green)}.dn{color:var(--red)}
+.mid{display:grid;grid-template-columns:1fr 190px;gap:10px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.card-t{font-size:12px;font-weight:600;color:var(--text)}
+.pill{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;border:none;transition:.15s}
+.range-wrap{display:flex;gap:4px}
+.rp{background:var(--bg3);color:var(--text2);border:1px solid var(--border);padding:3px 8px;border-radius:6px;font-size:10px;cursor:pointer;border:none;transition:.15s}
+.rp.on{background:var(--purple);color:#fff}
+.big{font-size:20px;font-weight:700;color:var(--text)}
+.sub{font-size:11px;color:var(--text3);margin-top:2px;margin-bottom:8px}
+.sub b{color:var(--green)}
+.bot{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{color:var(--text3);font-weight:600;text-align:left;padding:5px 6px;border-bottom:1px solid var(--border);font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.tbl td{padding:7px 6px;border-bottom:1px solid var(--border);color:var(--text2)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--bg3);color:var(--text)}
+.sp{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.sp.d{background:var(--green2);color:var(--green)}
+.sp.s{background:var(--blue2);color:var(--blue)}
+.sp.p{background:var(--amber2);color:var(--amber)}
+.sp.c{background:var(--red2);color:var(--red)}
+.prow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
+.prow:last-child{border-bottom:none}
+.pico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pnm{font-size:11px;font-weight:600;color:var(--text)}
+.pct{font-size:10px;color:var(--text3)}
+.pbar{flex:1;height:3px;background:var(--bg3);border-radius:2px;margin:0 6px}
+.pbf{height:3px;border-radius:2px}
+.prev{font-size:11px;font-weight:700;color:var(--text);white-space:nowrap}
+.notif-dot{width:6px;height:6px;background:var(--red);border-radius:50%;position:absolute;top:6px;right:6px}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+<div class="dash" id="dash">
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-box"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+      <span class="logo-name">Storex</span>
+    </div>
+    <span class="nav-sec">Main</span>
+    <div class="nav on"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard</div>
+    <div class="nav"><i class="ti ti-shopping-cart" aria-hidden="true"></i> Orders <span class="badge">12</span></div>
+    <div class="nav"><i class="ti ti-box" aria-hidden="true"></i> Products</div>
+    <div class="nav"><i class="ti ti-users" aria-hidden="true"></i> Customers</div>
+    <span class="nav-sec">Finance</span>
+    <div class="nav"><i class="ti ti-report-money" aria-hidden="true"></i> Revenue</div>
+    <div class="nav"><i class="ti ti-credit-card" aria-hidden="true"></i> Payouts</div>
+    <div class="nav" style="position:relative"><i class="ti ti-bell" aria-hidden="true"></i> Alerts <div class="notif-dot"></div></div>
+    <span class="nav-sec">System</span>
+    <div class="nav"><i class="ti ti-settings" aria-hidden="true"></i> Settings</div>
+    <div class="nav"><i class="ti ti-help-circle" aria-hidden="true"></i> Help</div>
+    <div class="sb-bot">
+      <div style="display:flex;align-items:center;gap:8px;padding:4px">
+        <div class="avatar">AE</div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text)">Adham</div>
+          <div style="font-size:10px;color:var(--text3)">Pro plan</div>
+        </div>
+      </div>
+      <button class="upg">↑ Upgrade to Business</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="tbtitle">Dashboard</div>
+      <div class="tb-right">
+        <div class="tb-btn"><i class="ti ti-calendar" style="font-size:12px" aria-hidden="true"></i> Last 30 days</div>
+        <div class="tb-btn" id="filterBtn"><i class="ti ti-filter" style="font-size:12px" aria-hidden="true"></i> Filter</div>
+        <div class="tb-btn" onclick="sendPrompt('حمّل لي تقرير PDF كامل عن أداء المتجر')"><i class="ti ti-download" style="font-size:12px" aria-hidden="true"></i> Export ↗</div>
+        <button class="toggle-dark" id="themeToggle" aria-label="Toggle dark/light mode"></button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="stats">
+        <div class="sc" onclick="sendPrompt('اعطني تفاصيل عن المبيعات الشهر ده')">
+          <div class="sc-lbl">Total Revenue <i class="ti ti-trending-up" style="font-size:13px;color:#7c6ef5" aria-hidden="true"></i></div>
+          <div class="sc-val" id="rev">$48,295</div>
+          <span class="sc-ch up">↑ 18.4% vs last month</span>
+        </div>
+        <div class="sc" onclick="sendPrompt('اعطني تفاصيل الطلبات الجديدة')">
+          <div class="sc-lbl">New Orders <i class="ti ti-shopping-bag" style="font-size:13px;color:#4fa3f7" aria-hidden="true"></i></div>
+          <div class="sc-val" id="ord">1,342</div>
+          <span class="sc-ch up">↑ 9.2%</span>
+        </div>
+        <div class="sc" onclick="sendPrompt('اعطني تفاصيل العملاء الجدد')">
+          <div class="sc-lbl">New Customers <i class="ti ti-user-plus" style="font-size:13px;color:#22c97a" aria-hidden="true"></i></div>
+          <div class="sc-val" id="cust">284</div>
+          <span class="sc-ch up">↑ 12.7%</span>
+        </div>
+        <div class="sc" onclick="sendPrompt('ازاي أقلل الـ refund rate؟')">
+          <div class="sc-lbl">Refund Rate <i class="ti ti-arrow-back-up" style="font-size:13px;color:#f05252" aria-hidden="true"></i></div>
+          <div class="sc-val" id="ref">3.2%</div>
+          <span class="sc-ch dn">↑ 0.4%</span>
+        </div>
+      </div>
+
+      <div class="mid">
+        <div class="card">
+          <div class="card-hd">
+            <div>
+              <div class="card-t">Revenue overview</div>
+              <div class="big" id="bigRev">$48,295</div>
+              <div class="sub"><b>↑ 18.4%</b> compared to last period</div>
+            </div>
+            <div class="range-wrap">
+              <button class="rp on" onclick="setRange(this,'7d')">7D</button>
+              <button class="rp" onclick="setRange(this,'30d')">30D</button>
+              <button class="rp" onclick="setRange(this,'90d')">90D</button>
+            </div>
+          </div>
+          <div style="position:relative;height:150px">
+            <canvas id="revChart" role="img" aria-label="Line chart showing revenue trend over time">Revenue trend chart.</canvas>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:8px">
+            <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2)"><span style="width:8px;height:8px;border-radius:2px;background:#7c6ef5;display:inline-block"></span>Revenue</span>
+            <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2)"><span style="width:8px;height:8px;border-radius:2px;background:#22c97a;display:inline-block"></span>Profit</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-t">Sales by channel</div>
+          </div>
+          <div style="position:relative;height:140px">
+            <canvas id="donutChart" role="img" aria-label="Donut chart showing sales split by channel">Sales channel breakdown.</canvas>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-top:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px">
+              <span style="display:flex;align-items:center;gap:5px;color:var(--text2)"><span style="width:8px;height:8px;border-radius:50%;background:#7c6ef5;display:inline-block"></span>Website</span>
+              <span style="color:var(--text);font-weight:600">52%</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px">
+              <span style="display:flex;align-items:center;gap:5px;color:var(--text2)"><span style="width:8px;height:8px;border-radius:50%;background:#4fa3f7;display:inline-block"></span>Mobile app</span>
+              <span style="color:var(--text);font-weight:600">31%</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px">
+              <span style="display:flex;align-items:center;gap:5px;color:var(--text2)"><span style="width:8px;height:8px;border-radius:50%;background:#22c97a;display:inline-block"></span>API / B2B</span>
+              <span style="color:var(--text);font-weight:600">17%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bot">
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-t">Recent orders</div>
+            <button class="pill" style="background:var(--purple3);color:var(--purple);font-size:10px;border:none;padding:3px 8px;border-radius:6px;cursor:pointer" onclick="sendPrompt('اعرض لي كل الطلبات مع خيار تصفية حسب الحالة')">View all ↗</button>
+          </div>
+          <table class="tbl">
+            <thead><tr><th>#</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-t">Top products</div>
+            <button class="pill" style="background:var(--purple3);color:var(--purple);font-size:10px;border:none;padding:3px 8px;border-radius:6px;cursor:pointer" onclick="sendPrompt('اعطني تحليل كامل لأداء المنتجات')">Analyze ↗</button>
+          </div>
+          <div id="prodList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const isDark = () => !document.getElementById('dash').classList.contains('light');
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.getElementById('dash').classList.toggle('light');
+  updateChartColors();
+});
+
+const rangeData = {
+  '7d': { labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], rev:[4200,5100,3800,6200,7400,5900,4800], prof:[1200,1600,1100,2100,2600,1900,1500], total:'$37,400', pct:'↑ 11.2%' },
+  '30d': { labels:['W1','W2','W3','W4'], rev:[10200,12400,11800,13895], prof:[3200,4100,3900,4700], total:'$48,295', pct:'↑ 18.4%' },
+  '90d': { labels:['Jan','Feb','Mar'], rev:[38000,44000,52000], prof:[12000,15000,18500], total:'$134,000', pct:'↑ 24.1%' }
+};
+
+let activeRange = '30d';
+let revChartObj = null;
+
+function getColors() {
+  return { grid: isDark() ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', tick: isDark() ? '#55556a' : '#9090aa' };
+}
+
+function buildRevChart() {
+  const ctx = document.getElementById('revChart');
+  if (revChartObj) revChartObj.destroy();
+  const d = rangeData[activeRange];
+  const c = getColors();
+  revChartObj = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: d.labels,
+      datasets: [
+        { label: 'Revenue', data: d.rev, borderColor: '#7c6ef5', borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#7c6ef5', fill: true, backgroundColor: isDark() ? 'rgba(124,110,245,0.08)' : 'rgba(124,110,245,0.06)', tension: 0.4 },
+        { label: 'Profit', data: d.prof, borderColor: '#22c97a', borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#22c97a', fill: false, tension: 0.4, borderDash: [4,3] }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' $' + ctx.raw.toLocaleString() } } },
+      scales: {
+        x: { grid: { color: c.grid }, ticks: { color: c.tick, font: { size: 10 } } },
+        y: { grid: { color: c.grid }, ticks: { color: c.tick, font: { size: 10 }, callback: v => '$' + (v/1000).toFixed(0) + 'k' } }
+      }
+    }
+  });
+}
+
+let donutObj = null;
+function buildDonut() {
+  const ctx = document.getElementById('donutChart');
+  if (donutObj) donutObj.destroy();
+  donutObj = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Website','Mobile app','API/B2B'],
+      datasets: [{ data: [52,31,17], backgroundColor: ['#7c6ef5','#4fa3f7','#22c97a'], borderWidth: 0, hoverOffset: 4 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '70%',
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.raw + '%' } } }
+    }
+  });
+}
+
+function setRange(el, r) {
+  activeRange = r;
+  document.querySelectorAll('.rp').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const d = rangeData[r];
+  document.getElementById('bigRev').textContent = d.total;
+  document.querySelector('.sub b').textContent = d.pct;
+  buildRevChart();
+}
+
+function updateChartColors() {
+  buildRevChart();
+  buildDonut();
+}
+
+const orders = [
+  { id:'#5821', name:'Ahmed S.', amount:'$129.00', status:'d' },
+  { id:'#5820', name:'Nour K.', amount:'$74.50', status:'s' },
+  { id:'#5819', name:'James R.', amount:'$320.00', status:'p' },
+  { id:'#5818', name:'Sara M.', amount:'$55.00', status:'d' },
+  { id:'#5817', name:'Carlos B.', amount:'$210.00', status:'c' },
+];
+const statusLabel = { d:'Delivered', s:'Shipped', p:'Pending', c:'Cancelled' };
+const tbody = document.getElementById('ordersBody');
+orders.forEach(o => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td style="color:var(--text3);font-weight:600">${o.id}</td><td>${o.name}</td><td style="font-weight:600;color:var(--text)">${o.amount}</td><td><span class="sp ${o.status}">${statusLabel[o.status]}</span></td>`;
+  tbody.appendChild(tr);
+});
+
+const products = [
+  { name:'AirPods Max Clone', cat:'Electronics', rev:'$12,400', pct:88, color:'#7c6ef5', ico:'ti-headphones', bg:'rgba(124,110,245,0.15)' },
+  { name:'Bamboo Desk Mat', cat:'Office', rev:'$8,950', pct:64, color:'#22c97a', ico:'ti-layout-board', bg:'rgba(34,201,122,0.12)' },
+  { name:'RGB Keyboard', cat:'Electronics', rev:'$7,200', pct:51, color:'#4fa3f7', ico:'ti-keyboard', bg:'rgba(79,163,247,0.12)' },
+  { name:'Linen Tote Bag', cat:'Fashion', rev:'$5,100', pct:36, color:'#f5a623', ico:'ti-shopping-bag', bg:'rgba(245,166,35,0.12)' },
+  { name:'Ceramic Mug Set', cat:'Kitchen', rev:'$3,800', pct:27, color:'#f05252', ico:'ti-cup', bg:'rgba(240,82,82,0.12)' },
+];
+const pl = document.getElementById('prodList');
+products.forEach(p => {
+  pl.innerHTML += `<div class="prow">
+    <div class="pico" style="background:${p.bg}"><i class="ti ${p.ico}" style="font-size:14px;color:${p.color}" aria-hidden="true"></i></div>
+    <div style="flex:1;min-width:0">
+      <div class="pnm">${p.name}</div>
+      <div class="pct">${p.cat}</div>
+    </div>
+    <div class="pbar"><div class="pbf" style="width:${p.pct}%;background:${p.color}"></div></div>
+    <div class="prev">${p.rev}</div>
+  </div>`;
+});
+
+buildRevChart();
+buildDonut();
+</script>
